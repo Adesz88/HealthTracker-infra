@@ -22,7 +22,7 @@ resource "docker_container" "jenkins" {
   }
 
   volumes {
-    host_path = "./jenkins_home"
+    volume_name = "HealthTracker-jenkins"
     container_path = "/var/jenkins_home"
   }
 }
