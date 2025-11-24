@@ -25,4 +25,6 @@ resource "docker_container" "jenkins" {
     volume_name = "HealthTracker-jenkins"
     container_path = "/var/jenkins_home"
   }
+
+  restart = "unless-stopped"
 }
