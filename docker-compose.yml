@@ -1,0 +1,44 @@
+services:
+  db:
+    image: "mongo:latest"
+    ports:
+      - "6000:27017"
+    attach: false
+    networks:
+      health-tracker-network:
+        ipv4_address: 172.60.0.2
+
+  backend:
+    image: "health-tracker-backend:latest"
+    pull_policy: never
+    ports:
+      - "3000:3000"
+    networks:
+      health-tracker-network:
+        ipv4_address: 172.60.0.3
+
+  frontend:
+    image: "health-tracker-frontend:latest"
+    pull_policy: never
+    ports:
+      - "4200:80"
+    attach: false
+    networks:
+      health-tracker-network:
+        ipv4_address: 172.60.0.4
+    depends_on:
+      - backend
+
+networks:
+  health-tracker-network:
+    name: health-tracker-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.60.0.0/16
+          gateway: 172.60.0.1
+
+#networks:
+ #  health-tracker-network:
+  #  name: health-tracker-network
+   # external: true
