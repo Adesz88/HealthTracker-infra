@@ -17,8 +17,8 @@ resource "docker_container" "mongodb" {
   }
 
   networks_advanced {
-    name = "HealthTracker-network"
-    ipv4_address = "172.60.0.2"
+    name = "health-tracker-network"
+    ipv4_address = "172.60.0.3"
   }
 
   restart = "unless-stopped"

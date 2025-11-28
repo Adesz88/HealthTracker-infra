@@ -1,2 +1,2 @@
 # HealthTracker-infra
-docker volume create HealthTracker-jenkins
+docker volume create health-tracker-jenkins

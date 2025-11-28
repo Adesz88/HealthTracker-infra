@@ -8,10 +8,10 @@ terraform {
 }
 
 resource "docker_network" "infra_network" {
-  name = "HealthTracker-network"
+  name = "health-tracker-network"
   driver = "bridge"
   ipam_config {
-    subnet = "172.60.0.0/16"  # Customize subnet as needed
+    subnet = "172.60.0.0/16"
     gateway = "172.60.0.1"
   }
   internal = false
@@ -19,6 +19,12 @@ resource "docker_network" "infra_network" {
 
 module "jenkins" {
   source = "./modules/jenkins"
+}
+
+module "proxy" {
+  source = "./modules/proxy"
+
+  depends_on = [docker_network.infra_network]
 }
 
 module "mongodb" {

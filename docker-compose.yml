@@ -1,44 +1,47 @@
 services:
-  db:
-    image: "mongo:latest"
-    ports:
-      - "6000:27017"
-    attach: false
-    networks:
-      health-tracker-network:
-        ipv4_address: 172.60.0.2
+  # db:
+  #   image: "mongo:latest"
+  #   ports:
+  #     - "6000:27017"
+  #   attach: false
+  #   networks:
+  #     health-tracker-network:
+  #       ipv4_address: 172.60.0.3
+  
+  # proxy:
+  #   image: "proxy:latest"
+  #   pull_policy: never
+  #   ports:
+  #     - "80:80"
+  #   attach: false
+  #   networks:
+  #     health-tracker-network:
+  #       ipv4_address: 172.60.0.2
+  #   depends_on:
+  #     - backend
 
   backend:
-    image: "health-tracker-backend:latest"
-    pull_policy: never
+    image: "adesz88/health-tracker-backend:latest"
+    # pull_policy: never
     ports:
       - "3000:3000"
     networks:
       health-tracker-network:
-        ipv4_address: 172.60.0.3
+        ipv4_address: 172.60.0.4
 
   frontend:
-    image: "health-tracker-frontend:latest"
-    pull_policy: never
+    image: "adesz88/health-tracker-frontend:latest"
+    # pull_policy: never
     ports:
       - "4200:80"
     attach: false
     networks:
       health-tracker-network:
-        ipv4_address: 172.60.0.4
+        ipv4_address: 172.60.0.5
     depends_on:
       - backend
 
 networks:
-  health-tracker-network:
-    name: health-tracker-network
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.60.0.0/16
-          gateway: 172.60.0.1
-
-#networks:
- #  health-tracker-network:
-  #  name: health-tracker-network
-   # external: true
+ health-tracker-network:
+  name: health-tracker-network
+  external: true
