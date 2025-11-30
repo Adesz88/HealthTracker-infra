@@ -32,5 +32,10 @@ resource "docker_container" "jenkins" {
     container_path = "/var/jenkins_home"
   }
 
+  volumes {
+    host_path      = "/var/run/docker.sock"
+    container_path = "/var/run/docker.sock"
+  }
+
   restart = "unless-stopped"
 }
