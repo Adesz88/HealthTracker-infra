@@ -33,7 +33,33 @@ pipeline {
             }
         }
 
-        stage ('SSH') {
+        stage('Build frontend image') {
+            steps {
+                dir('HealthTracker-frontend') {
+                    script {
+                        def frontendImage = docker.build "adesz88/health-tracker-frontend:latest"
+                    }
+                }
+            }
+        }
+
+        stage('Install backend dependencies') {
+            steps {
+                dir('HealthTracker-backend') {
+                    sh 'npm ci'
+                }
+            }
+        }
+
+        stage('Build backend') {
+            steps {
+                dir('HealthTracker-backend') {
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        /*stage ('SSH') {
             steps {
                 script{
                     def remote = [:]
@@ -54,7 +80,7 @@ pipeline {
                     }
                 }   
             }
-        }
+        }*/
 
         stage('Cleanup') {
             steps {
