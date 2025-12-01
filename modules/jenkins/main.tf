@@ -19,7 +19,7 @@ resource "docker_image" "jenkins" {
 
 resource "docker_container" "jenkins" {
   name = "jenkins"
-  image = "jenkins-docker:latest"
+  image = docker_image.jenkins.image_id
 
   ports {
     internal = 8080

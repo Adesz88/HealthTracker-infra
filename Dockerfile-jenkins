@@ -5,7 +5,7 @@ USER root
 RUN apt-get update
 
 # Docker CLI telepítése
-RUN apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common
+RUN apt-get install -y apt-transport-https ca-certificates curl gnupg2
 
 RUN install -m 0755 -d /etc/apt/keyrings
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
