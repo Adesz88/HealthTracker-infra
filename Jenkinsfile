@@ -37,7 +37,7 @@ pipeline {
             steps {
                 dir('HealthTracker-frontend') {
                     script {
-                        def frontendImage = docker.build "adesz88/health-tracker-frontend:latest"
+                        def frontendImage = docker.build 'adesz88/health-tracker-frontend:latest',  '--no-cache .'
                     }
                 }
             }
@@ -55,6 +55,16 @@ pipeline {
             steps {
                 dir('HealthTracker-backend') {
                     sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Build backend image') {
+            steps {
+                dir('HealthTracker-backend') {
+                    script {
+                        def backendImage = docker.build 'adesz88/health-tracker-backend:latest', '--no-cache .'
+                    }
                 }
             }
         }
@@ -87,16 +97,6 @@ pipeline {
                 // Munkaterület tisztítása
                 deleteDir()
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline sikeresen lefutott!'
-        }
-        failure {
-            echo 'A pipeline végrehajtása sikertelen volt.'
-            // Itt értesítést küldhetnénk, például e-mailt vagy Slack üzenetet
         }
     }
 }

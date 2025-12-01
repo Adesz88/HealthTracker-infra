@@ -2,10 +2,11 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-RUN apt-get update
+RUN apt update
 
-# Docker CLI telepítése
-RUN apt-get install -y apt-transport-https ca-certificates curl gnupg2
+RUN apt install chromium -y
+
+RUN apt install -y apt-transport-https ca-certificates curl gnupg2
 
 RUN install -m 0755 -d /etc/apt/keyrings
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
@@ -17,7 +18,7 @@ RUN echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-RUN apt-get update && apt-get install -y docker-ce-cli
+RUN apt update && apt-get install -y docker-ce-cli
 
 # Create the docker group
 RUN groupadd -f docker
@@ -26,7 +27,7 @@ RUN groupadd -f docker
 RUN usermod -aG docker jenkins
 
 # Install sudo if not already present
-RUN apt-get update && apt-get install -y sudo
+RUN apt update && apt-get install -y sudo
 
 # Allow jenkins user to run specific commands with sudo without password
 RUN echo "jenkins ALL=(ALL) NOPASSWD: /usr/bin/chown" >> /etc/sudoers.d/jenkins
