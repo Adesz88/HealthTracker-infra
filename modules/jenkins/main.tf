@@ -13,7 +13,6 @@ resource "docker_image" "jenkins" {
     context    = "."
     dockerfile = "Dockerfile-jenkins"
     tag        = ["jenkins-docker:latest"]
-    no_cache   = true
   }
 }
 
@@ -46,6 +45,8 @@ resource "docker_container" "jenkins" {
     host_path      = "/var/run/docker.sock"
     container_path = "/var/run/docker.sock"
   }
+
+  group_add = ["docker"]
 
   restart = "unless-stopped"
 }

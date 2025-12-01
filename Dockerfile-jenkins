@@ -20,24 +20,13 @@ RUN echo \
 
 RUN apt update && apt-get install -y docker-ce-cli
 
-# Create the docker group
+# Create the docker group, change the group number to the number from this 'getent group docker'
 RUN groupadd -g 995 docker
 
 # Add jenkins user to the docker group
 RUN usermod -aG docker jenkins
 
-# Install sudo if not already present
-RUN apt update && apt-get install -y sudo
-
-# Allow jenkins user to run specific commands with sudo without password
-RUN echo "jenkins ALL=(ALL) NOPASSWD: /usr/bin/chown" >> /etc/sudoers.d/jenkins
-
-# Set up entrypoint script
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 # Switch to jenkins user
 USER jenkins
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
