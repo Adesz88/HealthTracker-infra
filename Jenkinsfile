@@ -28,7 +28,7 @@ pipeline {
         stage('Build frontend') {
             steps {
                 dir('HealthTracker-frontend') {
-                    sh 'ng build'
+                    sh 'ng build --base-href /frontend/'
                 }
             }
         }
