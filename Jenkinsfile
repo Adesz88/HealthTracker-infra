@@ -41,11 +41,13 @@ pipeline {
             }
         }
 
-        stage('Build frontend image') {
+        stage('Build and push frontend image') {
             steps {
                 dir('HealthTracker-frontend') {
                     script {
-                        def frontendImage = docker.build 'adesz88/health-tracker-frontend:latest',  '--no-cache .'
+                        docker.withRegistry('https://ghcr.io/', 'ghcr_token') {
+                            docker.build('ghcr.io/adesz88/health-tracker-frontend:latest', '--no-cache .').push('latest')
+                        }
                     }
                 }
             }
@@ -67,11 +69,13 @@ pipeline {
             }
         }
 
-        stage('Build backend image') {
+        stage('Build and push backend image') {
             steps {
                 dir('HealthTracker-backend') {
                     script {
-                        def backendImage = docker.build 'adesz88/health-tracker-backend:latest', '--no-cache .'
+                        docker.withRegistry('https://ghcr.io/', 'ghcr_token') {
+                            docker.build('ghcr.io/adesz88/health-tracker-backend:latest', '--no-cache .').push('latest')
+                        }
                     }
                 }
             }
