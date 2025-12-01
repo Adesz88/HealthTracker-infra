@@ -7,9 +7,19 @@ terraform {
   }
 }
 
+resource "docker_image" "jenkins" {
+  name = "jenkins-docker:latest"
+  build {
+    context    = "."
+    dockerfile = "Dockerfile-jenkins"
+    tag        = ["jenkins-docker:latest"]
+    no_cache   = true
+  }
+}
+
 resource "docker_container" "jenkins" {
   name = "jenkins"
-  image = "jenkins/jenkins:lts"
+  image = "jenkins-docker:latest"
 
   ports {
     internal = 8080
