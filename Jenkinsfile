@@ -33,6 +33,14 @@ pipeline {
             }
         }
 
+        stage('Test frontend') {
+            steps {
+                dir('HealthTracker-frontend') {
+                    sh 'npm run ci-test'
+                }
+            }
+        }
+
         stage('Build frontend image') {
             steps {
                 dir('HealthTracker-frontend') {
