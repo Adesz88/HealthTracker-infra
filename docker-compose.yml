@@ -21,7 +21,7 @@ services:
   #     - backend
 
   backend:
-    image: "adesz88/health-tracker-backend:latest"
+    image: "ghcr.io/adesz88/health-tracker-backend:latest"
     # pull_policy: never
     ports:
       - "3000:3000"
@@ -30,7 +30,7 @@ services:
         ipv4_address: 172.60.0.4
 
   frontend:
-    image: "adesz88/health-tracker-frontend:latest"
+    image: "ghcr.io/adesz88/health-tracker-frontend:latest"
     # pull_policy: never
     ports:
       - "4200:80"
