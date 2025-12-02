@@ -90,7 +90,7 @@ resource "docker_container" "zabbix_web_nginx_mysql" {
   
   ports {
     internal = 8080
-    external = 8080
+    external = 8081
   }
   
   env = [
