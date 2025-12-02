@@ -9,7 +9,7 @@ terraform {
 
 # MySQL Server
 resource "docker_container" "mysql_server" {
-  name  = "mysql-server-zabbix"
+  name  = "mysql-server"
   image = "mysql:8.0-oracle"
   
   networks_advanced {
