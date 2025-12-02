@@ -32,3 +32,11 @@ module "mongodb" {
 
   depends_on = [docker_network.infra_network]
 }
+
+module "zabbix" {
+  source = "./modules/zabbix"
+  
+  network = "health-tracker-network"
+  mysql_root_password = var.mysql_root_password
+  zabbix_mysql_password = var.zabbix_mysql_password
+}

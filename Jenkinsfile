@@ -41,18 +41,6 @@ pipeline {
             }
         }
 
-        stage('Build and push frontend image') {
-            steps {
-                dir('HealthTracker-frontend') {
-                    script {
-                        docker.withRegistry('https://ghcr.io/', 'ghcr_token') {
-                            docker.build('ghcr.io/adesz88/health-tracker-frontend:latest', '--no-cache .').push('latest')
-                        }
-                    }
-                }
-            }
-        }
-
         stage('Install backend dependencies') {
             steps {
                 dir('HealthTracker-backend') {
@@ -65,6 +53,18 @@ pipeline {
             steps {
                 dir('HealthTracker-backend') {
                     sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Build and push frontend image') {
+            steps {
+                dir('HealthTracker-frontend') {
+                    script {
+                        docker.withRegistry('https://ghcr.io/', 'ghcr_token') {
+                            docker.build('ghcr.io/adesz88/health-tracker-frontend:latest', '--no-cache .').push('latest')
+                        }
+                    }
                 }
             }
         }
@@ -106,7 +106,6 @@ pipeline {
 
         stage('Cleanup') {
             steps {
-                // Munkaterület tisztítása
                 deleteDir()
             }
         }
