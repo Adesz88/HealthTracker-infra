@@ -25,6 +25,7 @@ services:
     # pull_policy: never
     ports:
       - "3000:3000"
+    hostname: "backend"
     networks:
       health-tracker-network:
         ipv4_address: 172.60.0.4
