@@ -4,8 +4,6 @@ USER root
 
 RUN apt update
 
-RUN apt install chromium -y
-
 RUN apt install -y apt-transport-https ca-certificates curl gnupg2
 
 RUN install -m 0755 -d /etc/apt/keyrings
@@ -25,6 +23,8 @@ RUN groupadd -g 995 docker
 
 # Add jenkins user to the docker group
 RUN usermod -aG docker jenkins
+
+RUN apt install chromium -y
 
 # Switch to jenkins user
 USER jenkins
