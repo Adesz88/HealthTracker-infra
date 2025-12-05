@@ -33,12 +33,6 @@ module "mongodb" {
   depends_on = [docker_network.infra_network]
 }
 
-module "db-init" {
-  source = "./modules/db-init"
-
-  depends_on = [docker_container.mongodb]
-}
-
 /*module "zabbix" {
   source = "./modules/zabbix"
   
