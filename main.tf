@@ -36,7 +36,7 @@ module "mongodb" {
 module "db-init" {
   source = "./modules/db-init"
 
-  depends_on = [mongodb]
+  depends_on = [docker_container.mongodb]
 }
 
 /*module "zabbix" {
