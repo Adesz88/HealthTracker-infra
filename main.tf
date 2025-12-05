@@ -33,12 +33,20 @@ module "mongodb" {
   depends_on = [docker_network.infra_network]
 }
 
+module "db-init" {
+  source = "./modules/db-init"
+
+  depends_on = [mongodb]
+}
+
 /*module "zabbix" {
   source = "./modules/zabbix"
   
   network = "health-tracker-network"
   mysql_root_password = var.mysql_root_password
   zabbix_mysql_password = var.zabbix_mysql_password
+
+  depends_on = [docker_network.infra_network]
 }*/
 
 module "graylog" {
@@ -47,4 +55,6 @@ module "graylog" {
   network = "health-tracker-network"
   graylog_password_secret = var.graylog_password_secret
   graylog_root_password_sha2 = var.graylog_root_password_sha2
+
+  depends_on = [docker_network.infra_network]
 }
