@@ -18,7 +18,7 @@ RUN echo \
 
 RUN apt update && apt-get install -y docker-ce-cli
 
-# Create the docker group, change the group number to the number from this 'getent group docker'
+# Create the docker group, change the group number to the number from this: 'getent group docker'
 RUN groupadd -g 995 docker
 
 # Add jenkins user to the docker group

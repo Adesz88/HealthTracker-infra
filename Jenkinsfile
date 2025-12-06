@@ -81,7 +81,7 @@ pipeline {
             }
         }
 
-        /*stage ('SSH') {
+        stage ('SSH') {
             steps {
                 script{
                     def remote = [:]
@@ -94,7 +94,6 @@ pipeline {
                         remote.password = password
                         sshCommand remote: remote, command: """
                             cd Docker/HealthTracker-infra
-                            pwd
                             docker compose pull
                             docker compose down
                             docker compose up -d
@@ -102,7 +101,7 @@ pipeline {
                     }
                 }   
             }
-        }*/
+        }
 
         stage('Cleanup') {
             steps {
