@@ -10,7 +10,7 @@ Részei:
 - Graylog a logok gyűjtéséhez
 - Docker hálózat a kommunikációhoz
 
-A frontend nginx, a backend pedig pm2 segítségével konténerizált formában fut. A hozzájuk tartozó Dockerfile a HealthTracker repoban található.
+A frontend nginx, a backend pedig pm2 segítségével konténerizált formában fut. A hozzájuk tartozó Dockerfile a HealthTracker repo frontend és backend mappájában található.
 
 A Terraform csak az infrát hozza létre, az alkalmazás elindítása a Docker compose fájl segítségével történik, így új verzió kitelepítése esetén nem kell az egész infrát újrahúzni. Az alkalmazás konténerei bekapcsolódnak az infrához tartozó hálózatba és így kommunikálnak a többi konténerrel.
 
